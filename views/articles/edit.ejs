@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Article - Jeddit</title>
+  </head>
+  <body>
+    <%- include('../partials/header.ejs') %>
+
+    <h1>Edit Article</h1>
+
+    <form action="/articles/edit/<%= article.id %>" method="post">
+      <label>Title: <input type="text" name="title" value="<%= article.title %>" required /></label
+      ><br />
+      <label>Link: <input type="url" name="link" value="<%= article.link %>" required /></label
+      ><br />
+      <label
+        >Text: <textarea name="text" rows="4" cols="50"><%= article.text || '' %></textarea></label
+      ><br />
+
+      <button type="submit">Update Article</button>
+    </form>
+
+    <p><a href="/articles/show/<%= article.id %>">Cancel</a></p>
+  </body>
+</html>

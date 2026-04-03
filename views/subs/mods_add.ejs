@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Mod - j/<%= sub.name %></title>
+</head>
+
+<body>
+  <%- include('../partials/header.ejs') %>
+
+  <h1>Add Moderator to j/<%= sub.name %></h1>
+
+  <p><a href="/subs/show/<%= sub.name %>/mods/list">Back to Mod List</a></p>
+
+  <% if (error) { %>
+  <p style="color: red;"><%= error %></p>
+  <% } %>
+
+  <form method="POST" action="/subs/show/<%= sub.name %>/mods/add">
+    <label>
+      Username:
+      <input type="text" name="username" required>
+    </label>
+    <button type="submit">Add Mod</button>
+  </form>
+</body>
+
+</html>

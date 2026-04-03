@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Subjeddits - Jeddit</title>
+</head>
+<body>
+  <%- include('../partials/header') %>
+
+  <h1>All Subjeddits</h1>
+
+  <% if (currentUser) { %>
+    <a href="/subs/create">Create New Subjeddit</a>
+  <% } %>
+
+  <ul>
+    <% if (subs.length === 0) { %>
+      <li>No subjeddits yet. Be the first to create one!</li>
+    <% } else { %>
+      <% subs.forEach(sub => { %>
+        <li>
+          <a href="/subs/show/<%= sub.name %>">j/<%= sub.name %></a>
+        </li>
+      <% }); %>
+    <% } %>
+  </ul>
+</body>
+</html>

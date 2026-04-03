@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Remove Mod - j/<%= sub.name %></title>
+  </head>
+
+  <body>
+    <%- include('../partials/header') %>
+
+    <h1>Remove Moderator from j/<%= sub.name %></h1>
+
+    <p><a href="/subs/show/<%= sub.name %>/mods/list">← Back to Mod List</a></p>
+
+    <p>
+      Are you sure you want to remove <strong><%= modToRemove.username %></strong> as a moderator?
+    </p>
+
+    <form method="POST" action="/subs/show/<%= sub.name %>/mods/remove/<%= modToRemove.username %>">
+      <button type="submit">Yes, Remove Mod</button>
+    </form>
+
+    <p><a href="/subs/show/<%= sub.name %>/mods/list">Cancel</a></p>
+  </body>
+</html>

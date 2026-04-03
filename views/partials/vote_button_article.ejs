@@ -1,0 +1,22 @@
+<div class="vote-buttons">
+  <span>Score of this article is: <%= article.upvotes - article.downvotes %></span>
+
+  <!-- Only show buttons if logged in AND not the creator -->
+  <% if (currentUser && currentUser.id !== article.creator_id) { %>
+    <form method="POST" action="/articles/vote/<%= article.id %>/1?returnUrl=<%= currentPath %>" style="display: inline;">
+      <% if (article.current_vote && article.current_vote.vote_value === 1) { %>
+        <button class="vote-btn upvoted">+</button>
+      <% } else { %>
+        <button class="vote-btn">+</button>
+      <% } %>
+    </form>
+
+    <form method="POST" action="/articles/vote/<%= article.id %>/-1?returnUrl=<%= currentPath %>" style="display: inline;">
+      <% if (article.current_vote && article.current_vote.vote_value === -1) { %>
+        <button class="vote-btn downvoted">-</button>
+      <% } else { %>
+        <button class="vote-btn">-</button>
+      <% } %>
+    </form>
+  <% } %>
+</div>

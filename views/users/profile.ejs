@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= user.username %>'s Profile</title>
+</head>
+<body>
+  <%- include('../partials/header.ejs') %>
+
+  <h1><%= user.username %>'s Profile</h1>
+
+  <h2>Articles (<%= user.articles.length %>)</h2>
+  <% if (user.articles.length === 0) { %>
+    <p>No articles yet.</p>
+  <% } else { %>
+    <% user.articles.forEach(article => { %>
+      <div>
+        <a href="/articles/show/<%= article.id %>"><%= article.title %></a>
+      </div>
+    <% }); %>
+  <% } %>
+
+  <h2>Comments (<%= user.comments.length %>)</h2>
+  <% if (user.comments.length === 0) { %>
+    <p>No comments yet.</p>
+  <% } else { %>
+    <% user.comments.forEach(comment => { %>
+      <div><%= comment.text %></div>
+    <% }); %>
+  <% } %>
+</body>
+</html>

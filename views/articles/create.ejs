@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Article - Jeddit</title>
+  </head>
+  <body>
+    <%- include('../partials/header.ejs') %>
+
+    <h1>Create New Article in j/<%= subName %></h1>
+
+    <form action="/articles/create" method="post">
+      <input type="hidden" name="subName" value="<%= subName %>" />
+
+      <label>Title: <input type="text" name="title" required /></label><br />
+      <label>Link: <input type="url" name="link" required /></label><br />
+      <label>Text (optional): <textarea name="text" rows="4" cols="50"></textarea></label><br />
+
+      <button type="submit">Create Article</button>
+    </form>
+
+    <p><a href="/subs/show/<%= subName %>">Back to j/<%= subName %></a></p>
+  </body>
+</html>

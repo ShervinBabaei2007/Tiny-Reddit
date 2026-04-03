@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>j/<%= sub.name %> - Jeddit</title>
+</head>
+
+<body>
+  <%- include('../partials/header') %>
+
+  <h1>j/<%= sub.name %></h1>
+
+  <form method="GET" action="/subs/show/<%= sub.name %>">
+    <label>Sort by:
+      <select name="ordering" onchange="this.form.submit()">
+        <option value="new">New</option>
+        <option value="top">Top</option>
+        <option value="old">Old</option>
+        <option value="ragebait">Ragebait</option>
+      </select>
+    </label>
+    <button type="submit">Sort</button>
+  </form>
+
+  <script>
+    document.querySelector('select[name="ordering"]').value = '<%= ordering %>';
+  </script>
+
+  <p><a href="/">Back to all subjeddits</a></p>
+
+  <% if (currentUser) { %>
+  <a href="/articles/create?subName=<%= sub.name %>">Create New Article</a>
+  <% } %>
+
+  <!--  Mod List button for mods -->
+  <% if (isUserMod) { %>
+  | <a href="/subs/show/<%= sub.name %>/mods/list">Mod List</a>
+  <% } %>
+
+  <h2>Articles</h2>
+  <% if (articles.length === 0) { %>
+  <p>No articles yet. Be the first to post!</p>
+  <% } else { %>
+  <% articles.forEach(article => { %>
+  <div>
+    <%- include('../partials/vote_button_article.ejs', {article, currentPath: "/subs/show/" + sub.name}) %>
+
+    <h3><a href="/articles/show/<%= article.id %>"><%= article.title %></a></h3>
+    <p>Posted by <a href="/users/profile/<%= article.creator.id %>"><%= article.creator.username %></a></p>
+    <p><a href="<%= article.link %>" target="_blank"><%= article.link %></a></p>
+    <% if (article.text) { %>
+    <p><%= article.text %></p>
+    <% } %>
+
+    <% if (currentUser && currentUser.id === article.creator_id) { %>
+    <a href="/articles/edit/<%= article.id %>">Edit</a> |
+    <a href="/articles/delete/<%= article.id %>">Delete</a>
+    <% } %>
+
+    <!-- Mod delete button -->
+    <% if (isUserMod && currentUser && currentUser.id !== article.creator_id) { %>
+    | <a href="/articles/delete/<%= article.id %>">Mod Delete</a>
+    <% } %>
+  </div>
+  <% }); %>
+  <% } %>
+</body>
+
+</html>

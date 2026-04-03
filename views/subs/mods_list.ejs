@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mods - j <% sub.name %></title>
+</head>
+
+<body>
+  <%- include('../partials/header.ejs') %>
+
+  <h1>Moderators of j/<%= sub.name %></h1>
+
+  <p><a href="/subs/show/<%= sub.name %>">Back to j/<%= sub.name %></a></p>
+
+  <ul>
+    <% mods.forEach(mod => { %>
+    <li>
+      <a href="/users/profile/<%= mod.id %>"><%= mod.username %></a>
+      <a href="/subs/show/<%= sub.name %>/mods/remove/<%= mod.username %>">Remove</a>
+    </li>
+    <% }) %>
+  </ul>
+
+  <p><a href="/subs/show/<%= sub.name %>/mods/add">Add New Mod</a></p>
+</body>
+
+</html>

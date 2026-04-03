@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= article.title %> - Jeddit</title>
+</head>
+
+<body>
+  <%- include('../partials/header.ejs') %>
+
+  <h1><%= article.title %></h1>
+  <%- include('../partials/vote_button_article.ejs', {article, currentPath: "/articles/show/" + article.id}) %>
+
+  <p><a href="/subs/show/<%= article.sub_name %>">Back to j/<%= article.sub_name %></a></p>
+
+  <p>Posted by <a href="/users/profile/<%= article.creator.id %>"><%= article.creator.username %></a> in <a href="/subs/show/<%= article.sub_name %>">j/<%= article.sub_name %></a></p>
+
+  <!-- Displaying img if its an img url, otherwise will show link -->
+  <% if (article.isImage) { %>
+  <div>
+    <img src="<%= article.link %>" alt="<%= article.title %>" style="max-width: 500px; height: auto;">
+  </div>
+
+  <p><a href="<%= article.link %>" target="_blank">View Original Image</a></p>
+  <% } else { %>
+  <p><a href="<%= article.link %>" target="_blank"><%= article.link %></a></p>
+  <% } %>
+
+  <% if (article.text) { %>
+  <p><%= article.text %></p>
+  <% } %>
+
+  <% if (currentUser && currentUser.id === article.creator_id) { %>
+  <p>
+    <a href="/articles/edit/<%= article.id %>">Edit</a> |
+    <a href="/articles/delete/<%= article.id %>">Delete</a>
+  </p>
+  <% } %>
+
+  <!-- Mod delete for article -->
+  <% if (isUserMod && currentUser && currentUser.id !== article.creator_id) { %>
+  <p>
+    <a href="/articles/delete/<%= article.id %>">Mod Delete</a>
+  </p>
+  <% } %>
+
+  <hr>
+
+  <h2>Comments</h2>
+
+  <form method="GET" action="/articles/show/<%= article.id %>">
+    <label>Sort by:
+      <select name="ordering" onchange="this.form.submit()">
+        <option value="new">New</option>
+        <option value="top">Top</option>
+        <option value="old">Old</option>
+        <option value="ragebait">Ragebait</option>
+      </select>
+    </label>
+    <button type="submit">Sort</button>
+  </form>
+
+  <script>
+    document.querySelector('select[name="ordering"]').value = '<%= ordering %>';
+  </script>
+
+  <% if (currentUser) { %>
+  <form action="/comments/create" method="post">
+    <input type="hidden" name="articleId" value="<%= article.id %>">
+    <label>Add a comment:<br>
+      <textarea name="text" rows="3" cols="50" required></textarea>
+    </label><br>
+    <button type="submit">Post Comment</button>
+  </form>
+  <% } else { %>
+  <p><a href="/users/login">Login</a> to comment</p>
+  <% } %>
+
+  <hr>
+
+  <% if (article.comments && article.comments.length > 0) { %>
+  <% article.comments.forEach(comment => { %>
+  <%- include('../partials/comment_tree', { comment, isUserMod, currentPath: "/articles/show/" + article.id }) %>
+  <% }) %>
+  <% } else { %>
+  <p>No comments yet. Be the first to comment!</p>
+  <% } %>
+
+</body>
+
+</html>

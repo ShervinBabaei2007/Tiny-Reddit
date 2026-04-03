@@ -1,0 +1,22 @@
+<div class="vote-buttons">
+  <span>Score: <%= comment.upvotes - comment.downvotes %></span>
+
+  <!-- Only show buttons if logged in AND not the creator -->
+  <% if (currentUser && currentUser.id !== comment.creator_id) { %>
+    <form method="POST" action="/comments/vote/<%= comment.id %>/1?returnUrl=<%= currentPath %>" style="display: inline;">
+      <% if (comment.current_vote && comment.current_vote.vote_value === 1) { %>
+        <button class="vote-btn upvoted">+</button>
+      <% } else { %>
+        <button class="vote-btn">+</button>
+      <% } %>
+    </form>
+
+    <form method="POST" action="/comments/vote/<%= comment.id %>/-1?returnUrl=<%= currentPath %>" style="display: inline;">
+      <% if (comment.current_vote && comment.current_vote.vote_value === -1) { %>
+        <button class="vote-btn downvoted">-</button>
+      <% } else { %>
+        <button class="vote-btn">-</button>
+      <% } %>
+    </form>
+  <% } %>
+</div>

@@ -1,0 +1,33 @@
+<div style="margin-left: 20px; border-left: 2px solid #ccc; padding-left: 10px; margin-top: 10px;">
+
+  <%- include('vote_buttons_comment', { comment, currentPath }) %>
+
+  <% if (comment.creator) { %>
+  <p><strong><a href="/users/profile/<%= comment.creator.id %>"><%= comment.creator.username %></a></strong> said:</p>
+  <p><%= comment.text %></p>
+  <% } else { %>
+  <p><em>[deleted]</em></p>
+  <% } %>
+
+  <p><small><%= new Date(comment.ts).toLocaleString() %></small></p>
+
+  <% if (currentUser && comment.creator && currentUser.id === comment.creator_id) { %>
+  <a href="/comments/edit/<%= comment.id %>">Edit</a> |
+  <a href="/comments/delete/<%= comment.id %>">Delete</a>
+  <% } %>
+
+  <% if (isUserMod && currentUser && comment.creator && currentUser.id !== comment.creator_id) { %>
+  <a href="/comments/delete/<%= comment.id %>">Mod Delete</a>
+  <% } %>
+
+  <% if (currentUser) { %>
+  <a href="/comments/show/<%= comment.id %>">Reply</a>
+  <% } %>
+
+  <% if (comment.children && comment.children.length > 0) { %>
+  <% comment.children.forEach(child => { %>
+  <%- include('comment_tree', { comment: child, isUserMod, currentPath }) %>
+  <% }) %>
+  <% } %>
+
+</div>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Article - Jeddit</title>
+</head>
+<body>
+  <%- include('../partials/header.ejs') %>
+
+  <h1>Delete Article</h1>
+
+  <p>Are you sure you want to delete this article?</p>
+
+  <h2><%= article.title %></h2>
+  <p><a href="<%= article.link %>" target="_blank"><%= article.link %></a></p>
+  <% if (article.text) { %>
+    <p><%= article.text %></p>
+  <% } %>
+
+  <form action="/articles/delete/<%= article.id %>" method="post">
+    <button type="submit" style="color: red;">Yes, Delete This Article</button>
+  </form>
+
+  <p><a href="/articles/show/<%= article.id %>">Cancel, Keep Article</a></p>
+</body>
+</html>

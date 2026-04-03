@@ -1,0 +1,30 @@
+{
+  "name": "a2-jeddit-shervinbabaei2007",
+  "version": "1.0.0",
+  "description": "In this Assignment, you will make a complete MPA web application with multiple routes and logins, in particular a simple social media aggregator, like Diggg (that reference is a joke; does anyone remember Diggg?).",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon --ignore database_data.json index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comp2131-202610/a2-jeddit-ShervinBabaei2007.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/comp2131-202610/a2-jeddit-ShervinBabaei2007/issues"
+  },
+  "homepage": "https://github.com/comp2131-202610/a2-jeddit-ShervinBabaei2007#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.2",
+    "cookie-session": "^2.1.1",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+  }
+}

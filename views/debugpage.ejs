@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Debug Page - Jeddit</title>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+
+    <h1>Debug Tools</h1>
+
+    <h2>Database Operations</h2>
+
+    <form method="GET" action="/debug_db">
+      <button type="submit">View Database (check console)</button>
+    </form>
+
+    <form method="POST" action="/reset_db">
+      <button type="submit">Reset & Seed Database</button>
+    </form>
+
+    <p><em>Check your server console for output</em></p>
+  </body>
+</html>

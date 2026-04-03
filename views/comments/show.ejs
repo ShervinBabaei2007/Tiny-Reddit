@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comment - Jeddit</title>
+</head>
+
+<body>
+  <%- include('../partials/header.ejs') %>
+
+  <h1>Comment</h1>
+
+  <%- include('../partials/vote_buttons_comment.ejs', {comment, currentPath: "/comments/show/" + comment.id}) %>
+
+  <p>
+    <strong><a href="/users/profile/<%= comment.creator.id %>"><%= comment.creator.username %></a></strong>
+    said:
+  </p>
+  <p><%= comment.text %></p>
+  <p><small><%= new Date(comment.ts).toLocaleString() %></small></p>
+
+  <p><a href="/articles/show/<%= comment.article_id %>">Back to Article</a></p>
+
+  <% if (currentUser && currentUser.id === comment.creator_id) { %>
+  <p>
+    <a href="/comments/edit/<%= comment.id %>">Edit</a> |
+    <a href="/comments/delete/<%= comment.id %>">Delete</a>
+  </p>
+  <% } %>
+
+  <!-- mod delete for comment -->
+  <% if (isUserMod && currentUser && currentUser.id !== comment.creator_id) { %>
+  <p>
+    <a href="/comments/delete/<%= comment.id %>">Mod Delete</a>
+  </p>
+  <% } %>
+
+  <hr>
+
+  <!-- Reply form -->
+  <% if (currentUser) { %>
+  <h3>Reply</h3>
+  <form action="/comments/create" method="post">
+    <input type="hidden" name="articleId" value="<%= comment.article_id %>">
+    <input type="hidden" name="parentId" value="<%= comment.id %>">
+    <textarea name="text" rows="3" cols="50" required></textarea><br>
+    <button type="submit">Reply</button>
+  </form>
+  <% } %>
+
+  <!-- Nested replies -->
+  <% if (comment.children && comment.children.length > 0) { %>
+  <h3>Replies</h3>
+  <% comment.children.forEach(child => { %>
+  <%- include('../partials/comment_tree', { comment: child, isUserMod, currentPath: "/comments/show/" + comment.id }) %>
+  <% }) %>
+  <% } %>
+</body>
+
+</html>

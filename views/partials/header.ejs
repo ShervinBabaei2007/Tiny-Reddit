@@ -1,0 +1,22 @@
+<header>
+  <link rel="stylesheet" href="/style.css">
+
+  <div class="nav">
+    <a href="/">Home</a> |
+    <% if (currentUser) { %>
+      Logged in as
+      <a href="/users/profile/<%= currentUser.id %>">
+        <%= currentUser.username %>
+      </a>
+
+      <form method="POST" action="/users/logout" class="logout-form">
+        <button type="submit">Logout</button>
+      </form>
+    <% } else { %>
+      <a href="/users/login">Login</a> |
+      <a href="/users/register">Register</a>
+    <% } %>
+
+    | <a href="/debugpage">Debug</a>
+  </div>
+</header>
