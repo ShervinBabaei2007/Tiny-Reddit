@@ -9,7 +9,7 @@ const articlesRouter = require("./router/articlesRouter.js");
 const commentsRouter = require("./router/commentsRouter.js");
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,7 +18,7 @@ app.use(
   cookieSession({
     name: "session",
     keys: ["put_a_key_here_i_guess"],
-  })
+  }),
 );
 
 // Current user avalaible anywhere.
@@ -62,5 +62,5 @@ app.post("/reset_db", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Example app listening on port ${PORT}`);
 });
