@@ -61,6 +61,6 @@ app.post("/reset_db", (req, res) => {
   res.redirect("/");
 });
 
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
