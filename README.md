@@ -1,4 +1,4 @@
-# 🛡️ Jeddit
+# 💬 Jeddit
 
 **Jeddit** is a social media prototype that works like a simplified version of Reddit. I built this to practice handling complex features like comments inside of comments and managing different user roles.
 
